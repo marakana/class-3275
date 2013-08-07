@@ -29,7 +29,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		long n = Long.parseLong( input.getText().toString() );
 		
-		output.append( String.format("n=%d\n", n) );
+		long resultJ = FibLib.fibJ( n );
+		
+		output.append( String.format("fibJ(%d) = %d\n", n, resultJ) );
 		
 	}
 
