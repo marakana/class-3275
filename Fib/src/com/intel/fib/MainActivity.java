@@ -30,7 +30,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		long n = Long.parseLong(input.getText().toString());
+		
+		// Call to Java
 		new FibTask().execute(n);
+		
+		// Call Native
+		long start = System.currentTimeMillis();
+		long resultN = FibLib.fibN(n);
+		long timeN = System.currentTimeMillis() - start;
+		output.append( String.format("fibN() = %d (%d ms)\n", resultN, timeN) );
 	}
 
 	class FibTask extends AsyncTask<Long, Void, Long> {
@@ -42,16 +50,20 @@ public class MainActivity extends Activity implements OnClickListener {
 					"Please wait...");
 		}
 
+		long timeJ;
 		// Non-UI worker thread
 		@Override
 		protected Long doInBackground(Long... params) {
-			return FibLib.fibJ(params[0]);
+			timeJ = System.currentTimeMillis();
+			long resultJ = FibLib.fibJ(params[0]);
+			timeJ = System.currentTimeMillis() - timeJ;
+			return resultJ;
 		}
 
 		@Override
 		protected void onPostExecute(Long result) {
 			dialog.dismiss();
-			output.append(String.format("fibJ() = %d\n", result));
+			output.append(String.format("fibJ() = %d (%d ms)\n", result, timeJ));
 		}
 	}
 

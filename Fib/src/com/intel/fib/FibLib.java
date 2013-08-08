@@ -8,5 +8,8 @@ public class FibLib {
 		return fibJ(n-1) + fibJ(n-2);
 	}
 	
+	static {
+		System.loadLibrary("Fib");
+	}
 	public static native long fibN(long n);
 }

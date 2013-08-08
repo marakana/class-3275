@@ -16,7 +16,9 @@ jlong fibN(JNIEnv *env, jclass clazz, jlong n) {
 	return (jlong) fib((long) n);
 }
 
-static JNINativeMethod method_table[] { { "fibN", "(J)J", (void *) fibN } };
+static JNINativeMethod method_table[] {
+		{ "fibN", "(J)J", (void *) fibN }
+};
 
 }
 
@@ -39,3 +41,5 @@ extern "C" jint JNI_OnLoad(JavaVM* vm, void* reserved) {
 		}
 	}
 }
+
+
